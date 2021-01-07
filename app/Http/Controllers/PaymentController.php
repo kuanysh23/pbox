@@ -52,13 +52,13 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $valid = $request->validate([
-            'amount'=>'required|regex:/^\d+(\.\d{1,2})?$/',
+            'amount'=>'required|numeric',//regex:/^\d+(\.\d{1,2})?$/
             'phone'=>'min:10|max:15',
             'email'=>'min:4|max:100'
         ]);
 
         $payment = new Payment();
-        $payment->amount = $request->input('amount');
+        $payment->amount = $this->cutAmount($request->input('amount'), 2);
         $payment->phone = $request->input('phone');
         $payment->email = $request->input('email');
         $payment->save();
@@ -76,5 +76,14 @@ class PaymentController extends Controller
 
     public function show(Payment $payment){
         return view('payments.show', compact('payment'));
+    }
+
+    private function cutAmount(float $amount, int $len){
+        $power = pow(10, $len);
+        if($amount > 0){
+            return floor($amount * $power) / $power;
+        } else {
+            return ceil($amount * $power) / $power;
+        }
     }
 }
