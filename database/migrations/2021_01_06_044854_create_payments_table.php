@@ -23,6 +23,14 @@ class CreatePaymentsTable extends Migration
             $table->string('card')->nullable();
             $table->string('link')->nullable();
             $table->timestamps();
+
+
+            $table->index('status');
+            $table->index('date_paid');
+            $table->index('phone');
+            $table->index('email');
+            $table->index('card');
+            $table->index('created_at');
         });
     }
 

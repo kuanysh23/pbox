@@ -13,7 +13,6 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <h1>Форма создания счета</h1>
 
                         @if($errors->any())
                             <div class="alert alert-danger">

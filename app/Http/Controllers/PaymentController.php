@@ -53,8 +53,8 @@ class PaymentController extends Controller
     {
         $valid = $request->validate([
             'amount'=>'required|numeric',//regex:/^\d+(\.\d{1,2})?$/
-            'phone'=>'min:10|max:15',
-            'email'=>'min:4|max:100'
+            'phone'=>'max:15',
+            'email'=>'max:100'
         ]);
 
         $payment = new Payment();

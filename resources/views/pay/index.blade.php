@@ -28,14 +28,14 @@
                             @csrf
                             Сумма: {{$payment->amount}} KZT<br><br>
                             <div class="form-group custom-control-inline">
-                                <input name="card" type="text" maxlength="19" placeholder="Введите номер карты" style="width:200px" class="form-control" />
-                                <input name="month" type="text" maxlength="2" placeholder="ММ" style="width:50px" class="form-control" />
-                                <input name="year" type="text" maxlength="4" placeholder="ГГГГ" style="width:70px" class="form-control" />
+                                <input name="card" type="number" onchange="this.value=str.replace(/ /g, '');" maxlength="19" placeholder="Введите номер карты" style="width:200px" class="form-control" />
+                                <input name="month" type="number" maxlength="2" placeholder="ММ" style="width:80px" class="form-control" />
+                                <input name="year" type="number" maxlength="4" placeholder="ГГГГ" style="width:100px" class="form-control" />
                             </div>
                             <br><br>
                             <div class="form-group custom-control-inline">
                                 <input name="email" type="text" placeholder="Введите email" value="{{$payment->email}}" style="width:200px" class="form-control" />
-                                <input name="phone" type="text" placeholder="Введите номер телефона" value="{{$payment->phone}}" style="width:200px" class="form-control" />
+                                <input name="phone" type="number" placeholder="Введите номер телефона" value="{{$payment->phone}}" style="width:200px" class="form-control" />
                             </div>
                             <input type="hidden" name="id" value="{{$payment->id}}" />
                             <br><br>

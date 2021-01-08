@@ -19,8 +19,8 @@ class CreateRoleUserTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('role_id')->constrained();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('role_id')->references('id')->on('roles');
         });
 
         $current_date_time = date('Y-m-d H:i:s');

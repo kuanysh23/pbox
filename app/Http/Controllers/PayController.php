@@ -39,7 +39,11 @@ class PayController extends Controller
             'year'=>'digits:4',
             'phone'=>'digits_between:10,15',
             'email'=>'email:rfc,dns'
-        ]);
+        ],
+            [
+                'card.digits_between' => 'Количество символов в карте должно быть не больше 19 и не меньше 15!',
+                'phone.digits_between' => 'Количество символов в телефоне должно быть не больше 15 и не меньше 10!'
+            ]);
 
         $payment = DB::table('payments')->where('id', $request->id)->first();
         $result = 'Произошла ошибка во время оплаты!';
@@ -52,13 +56,21 @@ class PayController extends Controller
             if($this->luhnAlgorithm($request->card) && $expires >= $now){
                 DB::table('payments')
                     ->where('id', $payment->id)
-                    ->update(['status' => 1, 'date_paid' => $now, 'card' => $this->maskCard($request->card)]);
+                    ->update(['status' => 1,
+                        'date_paid' => $now,
+                        'phone' => $request->phone,
+                        'email' => $request->email,
+                        'card' => $this->maskCard($request->card)]);
 
                 $result = 'Оплата прошла успешно!';
             }else{
                 DB::table('payments')
                     ->where('id', $payment->id)
-                    ->update(['status' => 2, 'date_paid' => $now, 'card' => $this->maskCard($request->card)]);
+                    ->update(['status' => 2,
+                        'date_paid' => $now,
+                        'phone' => $request->phone,
+                        'email' => $request->email,
+                        'card' => $this->maskCard($request->card)]);
             }
         }
 
